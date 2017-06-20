@@ -1,7 +1,7 @@
 *{margin: 0;padding:0;list-style: none;}
 html,body{font-size: 100px;}
 body{
-	background: url("../images/bg1.jpg") no-repeat fixed;
+	background: url("../images/timg.jpg") no-repeat fixed;
 	background-size:cover;
 }
 .header{
@@ -32,6 +32,12 @@ body{
 	color:#fff;
 	float: left;
 	background:rgba(0,0,0,0.5);
-	margin: 0.2rem 0.2rem;
+	margin: 0.2rem 0.4rem;
 	padding:0 0.15rem;
+}
+.kuang{
+	width: 4rem;
+	height:2rem;
+	margin: auto auto;
+	border: 0.07rem solid #fff;
 }
