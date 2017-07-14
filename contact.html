@@ -79,7 +79,229 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 <div class="col-md-9">
 		 	<div class="single_contact contact_left">
 	  			  <h1>Get in Touch</h1>
-	  			  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+	  			  <p>一 ：Q: What is the difference between .get(), [], and .eq()?
+A: eq返回原生jQuery对象，截取某些el元素生成Jquery新对象
+
+　get和[]返回的都是原生的Dom对象，原理一致
+
+　get和[]区别是get是通过jQuery对象的方法获取，[]是根据jQuery是一个数组对象获取
+
+ 
+
+二: What is the difference between .bind(), .live(), and .delegate()?
+A: 它们实质调用的都是jQuery实例对象的on函数，更底层是jQuery.event.add();
+
+官方描述：Attach an event handler function for one or more events to the selected elements
+
+.on( events [, selector ] [, data ], handler(eventObject) )
+
+三种绑定函数代码
+
+ bind: this.on(types, null, data, fn); 直接绑定到元素上
+
+live: jQuery(this.context).on(types, this.selector, data, fn); 将事件绑定到context上，冒泡，当触发元素为this.selector时触发
+
+delegate: this.on(types. selector, data, fn)
+
+selector如何添加
+
+三: How, and why, would you namespace a bound event handler?
+A: click.myPlugin.simple定义了两个命名空间 为这个独特的click事件 可以被移除通过 .off('click.myPlugin') or .off('click.simple')
+
+命名空间跟css 相似都不是分层的，只需要一个名字来匹配
+
+jquery.event jquery.event.global jquery.event.handle
+
+四：What is the difference between $ and $.fn? Or just what is $.fn.
+1
+2
+3
+window.jQuery = window.$ = jQuery;
+ 
+jQuery.fn = jQuery.prototype = {}
+五：what's jQuery's context/selector and why use it 
+1
+2
+3
+<div id="context">
+    <div id="inner"></div>
+</div>
+　　
+
+context/selector 示例
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+<script>
+var $ret = $('#inner', $('#context')[0]);
+console.log($ret.selector); // #inner
+console.log($ret.context); // #context
+ 
+var $ret = $('#inner', '#context');
+console.log( $ret.selector); // '#context #inner'
+console.log( $ret.context); // document
+</script>
+context 就是限定查找的范围
+
+context 必须是一个DOM元素，context 底层还是用了.find方法来实现
+
+官方API selector context is implemented with the .find() method,so $("span", this) is equivalent to $(this).find("span")
+
+注：例子仅供展示，id类型查找非常快，所以不要用这种context，直接$('#inner')最好，当查找tag/class时用会比较高效.
+
+ 六：Difference between 'delegate()' and 'live()'
+delegate 指定了委托对象
+
+live委托给了jQuery的context，1.9以后删除了，用on代替
+
+一下三个效果一致
+
+1
+2
+3
+$(selector).live(events, data, handler);
+$(document).delegate(selector, events. data, handler);
+$(document).on(events, selector, data, handler);
+七：What is the effetcs (of fx) queue?
+.queue([queueName])
+
+官方API：Show the queue of functions to be executed on the matched elements.
+
+Queues allow a sequence of actions to be called on an element asynchronously, without halting program execution. 最大的特点是这些代码异步执行，不影响后面代码操作，说白了就是将他们放入一个队列中
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+div { margin:3px; width:40px; height:40px;
+        position:absolute; left:0px; top:60px;
+        background:green; display:none;
+ }
+ 
+div.newcolor { background:blue; }
+p { color:red; } 
+ 
+<p>The queue length is: <span></span></p>
+<div id="box">1</div>
+<div style="top:120px;">2</div>
+<button id="start">start</button>
+<button id="end">end</button>
+　　
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+<script>
+var $box = $('div');
+ 
+function runIt() {
+    $box.show()
+        .animate({'left':"+=200"}, 2000)
+        .queue(function(next){
+            $(this).addClass('newcolor');
+            next();
+        })
+        .slideToggle(1000)
+        .slideToggle('fast')
+        .animate({'left':"-=200"}, 2000)
+        .queue(function(next){
+            $(this).removeClass('newcolor');
+            next();
+        }) 
+        .hide('slow')
+        .show(200)
+        .slideUp("normal");
+}
+ 
+function showIt(){
+    var n = $box.queue();
+    $("span").text(n.length);
+    setTimeout(showIt, 100);
+}
+ 
+function stopIt(){
+    $box.queue('fx', []);
+    $box.stop();
+}
+ 
+$('#start').click(function(){
+    runIt();
+});
+$('#end').click(function(){
+    stopIt();
+})
+showIt();
+ 
+ 
+</script>
+八：attr和prop的区别　　
+attr是操作属性节点，DOM的API setAttribute，getAttribute（HTML）
+
+prop是操作获取到的对应js对象的属性 （JS）
+
+场景：遇到要获取或设置checked,selected,readonly和disabled等属性时，用prop方法显然更好
+
+prop更高效，因为attr要DOM访问 
+
+附加：
+
+Generally, DOM attributes represent the state of DOM information as retrieved from the document, such as the value attribute in the markup <input type="text" value="abc">. DOM properties represent the dynamic state of the document; for example if the user clicks in the input element above and typesdef the .prop("value") is abcdef but the .attr("value") remains abc.</p>
 	  			 <form>
 					<div class="column_2">
                      	<input type="text" class="text"  placeholder="" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
