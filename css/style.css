@@ -140,9 +140,14 @@ a.boxclose{
 }--*/
 .logo{
 	text-align:center;
-	margin-top:10em;
+	/* width: 8em;
+	height:8em; */
+	margin-top:11em;
 }
 .logo img{
+	width: 8em;
+	height:8em;
+	border-radius: 50%;
     display:inline-block;	
 }
 .header_arrow {
