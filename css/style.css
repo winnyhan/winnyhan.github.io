@@ -142,13 +142,18 @@ a.boxclose{
 	text-align:center;
 	/* width: 8em;
 	height:8em; */
-	margin-top:11em;
+	margin-top:14em;
 }
 .logo img{
-	width: 8em;
-	height:8em;
+	width: 8rem;
+	height:8rem;
 	border-radius: 50%;
     display:inline-block;	
+}
+.banner-info{
+	font-size: 2em;
+	margin-top:1em;
+	color: #fff;
 }
 .header_arrow {
   text-align: center;
