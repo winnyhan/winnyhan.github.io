@@ -1100,6 +1100,54 @@ ul.list_1 li, .list_2 p, .copy p{
 .content_top, .content_middle {
   padding: 3em 0;
 }
+/*-- /about --*/
+#about,#mail,#gallery {
+    padding: 4em 0;
+    overflow: hidden;
+}
+#about .w3ls-agile-left-info {
+    padding: 1em 0;
+    border-bottom: 1px dashed #44c7f4;
+}
+#about .w3ls-agile-left-info h4, .social-info h4 {
+    font-size: 1.6em;
+    margin: 0;
+    color: #212121;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    float: left;
+}
+#about .w3ls-agile-left-info p {
+    color: #827e7e;
+    font-size: 0.95em;
+    float: right;
+}
+#about .agile-about-right-img img {
+    width: 100%;
+}
+
+#about h3.w3l_head {
+    text-align: center;
+    color: #111;
+    font-size: 3.5em;
+    letter-spacing: 2px;
+}
+#about h3.w3l_head.three {
+    color: #44c7f4;
+}
+#about p.w3ls_head_para {
+    color: #44c7f4;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 7px;
+}
+#about .w3l-grids-about {
+    margin-top: 3em;
+}
+#about .w3ls-agile-left-info a {
+    color: #44c7f4;
+}
+/*-- //about --*/
 .content_bottom h3 {
   font-size: 0.8125em;
 }
